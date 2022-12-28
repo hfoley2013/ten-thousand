@@ -1,222 +1,222 @@
 from ten_thousand.game_logic import GameLogic
 
-dice_roller = GameLogic.roll_dice
 
 
-def play(roller=GameLogic.roll_dice, num_rounds=20):
-    """
-    play Ten Thousand game
 
-    Args:
-        roller: optional dice rolling function. Default is GameLogic.roll_dice
-        num_rounds: optional number of rounds. Default of 20
 
-    Returns:
-        None
+# def play(roller=GameLogic.roll_dice, num_rounds=20):
+#     """
+#     play Ten Thousand game
 
-    """
-    global dice_roller
+#     Args:
+#         roller: optional dice rolling function. Default is GameLogic.roll_dice
+#         num_rounds: optional number of rounds. Default of 20
 
-    dice_roller = roller
+#     Returns:
+#         None
 
-    choice = invite_to_play()
+#     """
 
-    if choice == "y":
-        start_game(num_rounds)
-    else:
-        decline_game()
+#     dice_roller = roller
 
+#     choice = invite_to_play()
 
-def invite_to_play():
-    """
-    Display welcome message and prompt them to play or decline
-    Returns:
-        string "y" or "n"
-    """
-    print("Welcome to Ten Thousand")
-    print("(y)es to play or (n)o to decline")
-    choice = input("> ")
-    return choice
+#     if choice == "y":
+#         start_game(num_rounds)
+#     else:
+#         decline_game()
 
 
-def start_game(num_rounds):
-    """
-    Start the game and run for given number of rounds
-    Args:
-        num_rounds:
+# def invite_to_play():
+#     """
+#     Display welcome message and prompt them to play or decline
+#     Returns:
+#         string "y" or "n"
+#     """
+#     print("Welcome to Ten Thousand")
+#     print("(y)es to play or (n)o to decline")
+#     choice = input("> ")
+#     return choice
 
-    Returns:
-        None
-    """
-    round_num = 1
-    max_round = num_rounds
-    total_points = 0
 
-    while round_num <= max_round:
-        round_result = do_round(round_num)
-        if round_result == -1:
-            break
+# def start_game(num_rounds):
+#     """
+#     Start the game and run for given number of rounds
+#     Args:
+#         num_rounds:
 
-        print(f"You banked {round_result} points in round {round_num}")
+#     Returns:
+#         None
+#     """
+#     round_num = 1
+#     max_round = num_rounds
+#     total_points = 0
 
-        total_points += round_result
+#     while round_num <= max_round:
+#         round_result = do_round(round_num)
+#         if round_result == -1:
+#             break
 
-        print(f"Total score is {total_points} points")
-        round_num += 1
+#         print(f"You banked {round_result} points in round {round_num}")
 
-    print(f"Thanks for playing. You earned {total_points} points")
+#         total_points += round_result
 
+#         print(f"Total score is {total_points} points")
+#         round_num += 1
 
-def do_round(round_num):
-    """
-    Play a round of the game
-    Args:
-        round_num:
+#     print(f"Thanks for playing. You earned {total_points} points")
 
-    Returns:
-        integer for number of points scored in the round
-        -1 has special meaning for "quit"
-    """
-    print(f"Starting round {round_num}")
 
-    num_dice = 6
-    unbanked_points = 0
+# def do_round(round_num):
+#     """
+#     Play a round of the game
+#     Args:
+#         round_num:
 
-    # loop here until a quit, bank or zilch
-    while True:
-        roll = do_roll(num_dice)
+#     Returns:
+#         integer for number of points scored in the round
+#         -1 has special meaning for "quit"
+#     """
+#     print(f"Starting round {round_num}")
 
-        if GameLogic.calculate_score(roll) == 0:
-            zilch()
-            return 0
+#     num_dice = 6
+#     unbanked_points = 0
 
-        keepers = confirm_keepers(roll)
+#     # loop here until a quit, bank or zilch
+#     while True:
+#         roll = do_roll(num_dice)
 
-        # TODO: I don't like these varying ways to handle a quit
-        if len(keepers) == 0:
-            return -1
+#         if GameLogic.calculate_score(roll) == 0:
+#             zilch()
+#             return 0
 
-        unbanked_points += GameLogic.calculate_score(keepers)
+#         keepers = confirm_keepers(roll)
 
-        num_dice -= len(keepers)
+#         # TODO: I don't like these varying ways to handle a quit
+#         if len(keepers) == 0:
+#             return -1
 
-        if num_dice == 0:  # hot dice
-            num_dice = 6  # reset to six
+#         unbanked_points += GameLogic.calculate_score(keepers)
 
-        print(f"You have {unbanked_points} unbanked points and {num_dice} dice remaining")
+#         num_dice -= len(keepers)
 
-        print("(r)oll again, (b)ank your points or (q)uit:")
+#         if num_dice == 0:  # hot dice
+#             num_dice = 6  # reset to six
 
-        roll_bank_or_quit = input("> ")
+#         print(f"You have {unbanked_points} unbanked points and {num_dice} dice remaining")
 
-        if roll_bank_or_quit == "q":
-            return -1
-        elif roll_bank_or_quit == "b":
-            return unbanked_points
+#         print("(r)oll again, (b)ank your points or (q)uit:")
 
+#         roll_bank_or_quit = input("> ")
 
-def zilch():
-    """
-    Display zilch message
-    Returns:
-        None
-    """
-    print("****************************************")
-    print("**        Zilch!!! Round over         **")
-    print("****************************************")
+#         if roll_bank_or_quit == "q":
+#             return -1
+#         elif roll_bank_or_quit == "b":
+#             return unbanked_points
 
 
-def confirm_keepers(roll):
-    """
+# def zilch():
+#     """
+#     Display zilch message
+#     Returns:
+#         None
+#     """
+#     print("****************************************")
+#     print("**        Zilch!!! Round over         **")
+#     print("****************************************")
 
-    Return values that user would like to keep after being validated
 
-    Loops until user quits or follows the rules (aka keeps values that are valid)
+# def confirm_keepers(roll):
+#     """
 
-    Args:
-        roll: tuple of integers
+#     Return values that user would like to keep after being validated
 
-    Returns:
-        tuple of values to keep aka "keepers"
-        empty tuple signals a "quit"
-    """
-    while True:
-        print("Enter dice to keep, or (q)uit:")
-        keep_or_quit = input("> ")
+#     Loops until user quits or follows the rules (aka keeps values that are valid)
 
-        if keep_or_quit == "q":
-            return tuple()  # empty tuple means quit
+#     Args:
+#         roll: tuple of integers
 
-        keepers = convert_keepers(keep_or_quit)
+#     Returns:
+#         tuple of values to keep aka "keepers"
+#         empty tuple signals a "quit"
+#     """
+#     while True:
+#         print("Enter dice to keep, or (q)uit:")
+#         keep_or_quit = input("> ")
 
-        if GameLogic.validate_keepers(roll, keepers):
-            return keepers
-        else:
-            print("Cheater!!! Or possibly made a typo...")
-            formatted_roll = format_roll(roll)
-            print(formatted_roll)
+#         if keep_or_quit == "q":
+#             return tuple()  # empty tuple means quit
 
+#         keepers = convert_keepers(keep_or_quit)
 
-def convert_keepers(keeper_string):
-    """
-    converts a given string of dice values to keep into a tuple of integers
-    Args:
-        keeper_string:
+#         if GameLogic.validate_keepers(roll, keepers):
+#             return keepers
+#         else:
+#             print("Cheater!!! Or possibly made a typo...")
+#             formatted_roll = format_roll(roll)
+#             print(formatted_roll)
 
-    Returns:
-        tuple of integers
 
-    """
-    values = [int(value) for value in keeper_string if value.isdigit()]
-    return tuple(values)
+# def convert_keepers(keeper_string):
+#     """
+#     converts a given string of dice values to keep into a tuple of integers
+#     Args:
+#         keeper_string:
 
+#     Returns:
+#         tuple of integers
 
-def do_roll(num_dice):
-    """
-    Display to user a new roll of given number of dice in formatted form
-    Args:
-        num_dice:
+#     """
+#     values = [int(value) for value in keeper_string if value.isdigit()]
+#     return tuple(values)
 
-    Returns:
-        return the roll (tuple of integers
 
-    """
-    print(f"Rolling {num_dice} dice...")
+# def do_roll(num_dice):
+#     """
+#     Display to user a new roll of given number of dice in formatted form
+#     Args:
+#         num_dice:
 
-    roll = dice_roller(num_dice)
+#     Returns:
+#         return the roll (tuple of integers
 
-    formatted_roll = format_roll(roll)
+#     """
+#     print(f"Rolling {num_dice} dice...")
 
-    print(formatted_roll)
+#     roll = dice_roller(num_dice)
 
-    return roll
+#     formatted_roll = format_roll(roll)
 
+#     print(formatted_roll)
 
-def format_roll(roll):
-    """
-    converts given roll into display friendly string
+#     return roll
 
-    Args:
-        roll: e.g. (5, 1, 1, 4, 5, 5)
 
-    Returns:
-        string: e.g. *** 5 1 1 4 5 5 ***
-    """
-    values_as_strings = [str(value) for value in roll]
+# def format_roll(roll):
+#     """
+#     converts given roll into display friendly string
 
-    formatted_roll = " ".join(values_as_strings)
+#     Args:
+#         roll: e.g. (5, 1, 1, 4, 5, 5)
 
-    return f"*** {formatted_roll} ***"
+#     Returns:
+#         string: e.g. *** 5 1 1 4 5 5 ***
+#     """
+#     values_as_strings = [str(value) for value in roll]
 
+#     formatted_roll = " ".join(values_as_strings)
 
-def decline_game():
-    """
-    Displays message to decling player
-    Returns:
-        None
-    """
-    print("OK. Maybe another time")
+#     return f"*** {formatted_roll} ***"
 
 
-if __name__ == '__main__':
-    play()
+# def decline_game():
+#     """
+#     Displays message to decling player
+#     Returns:
+#         None
+#     """
+#     print("OK. Maybe another time")
+
+
+# if __name__ == '__main__':
+#     play()
