@@ -10,57 +10,36 @@ class GameLogic:
     @staticmethod
     def calculate_score(dice_roll):
         dice_count = Counter(dice_roll)
-        print(dice_count)
-        num_ones = dice_roll.count(1)
-        num_twos = dice_roll.count(2)
-        num_threes = dice_roll.count(3)
-        num_fours = dice_roll.count(4)
-        num_fives = dice_roll.count(5)
-        num_sixes = dice_roll.count(6)
+
+        score_dict = {1: 1000, 2: 200, 3: 300, 4: 400, 5: 500, 6: 600}
 
         score = 0
 
-        # Calculate score for ones
-        score += num_ones * 100
+        # calculate straight
+        if len(dice_count) == 6:
+            return 1500
 
-        # Calculate score for twos
-        score += num_twos * 200
+        # calculate triple doubles
+        if len(dice_count) == 3 and all(value == 2 for value in dice_count.values()):
+            return 1500
 
-        # Calculate score for threes
-        score += num_threes * 300
-
-        # Calculate score for fours
-        score += num_fours * 400
-
-        # Calculate score for fives
-        # score += num_fives * 500
-
-        # Calculate score for sixes
-        score += num_sixes * 600
-
-        # Calculate score for straight
-        if num_ones == 1 and num_twos == 1 and num_threes == 1 and num_fours == 1 and num_fives == 1 and num_sixes == 1:
-            score += 1500
-
-        # Calculate score for three pairs
-        if num_ones == 2 and num_twos == 2 and num_threes == 2 and num_fours == 2 and num_fives == 2 and num_sixes == 2:
-            score += 750
-
-        # Calculate score for two trios
-        if ((num_ones == 3 and num_twos == 3) or (num_ones == 3 and num_threes == 3) or (num_ones == 3 and num_fours == 3) or (num_ones == 3 and num_fives == 3) or (num_ones == 3 and num_sixes == 3)) and ((num_twos == 3 and num_threes == 3) or (num_twos == 3 and num_fours == 3) or (num_twos == 3 and num_fives == 3) or (num_twos == 3 and num_sixes == 3)) and ((num_threes == 3 and num_fours == 3) or (num_threes == 3 and num_fives == 3) or (num_threes == 3 and num_sixes == 3)) and ((num_fours == 3 and num_fives == 3) or (num_fours == 3 and num_sixes == 3)) and ((num_fives == 3 and num_sixes == 3)):
-            score += 1500
-
-        # Calculate score for three of a kind
-        if num_ones >= 3 or num_twos >= 3 or num_threes >= 3 or num_fours >= 3 or num_fives >= 3 or num_sixes >= 3:
-            score += 1000
-            score += sum(dice_roll)
-
-        # Calculate score for leftover ones
-        score += (num_ones % 3) * 100
-
-        # Calculate score for leftover fives
-        score += (num_fives % 3) * 50
+        # score based on face value
+        for face_value, count in dice_count.items():
+            if face_value == 5 and count <= 2:
+                score += 50 * count
+            elif face_value == 1 and count <= 2:
+                score += 100 * count
+            elif face_value == 1 and count == 3:
+                score += 1000
+            elif count == 3:
+                score += score_dict[face_value]
+            elif count == 4:
+                score += score_dict[face_value] * 2
+            elif count == 5:
+                score += score_dict[face_value] * 3
+            elif count == 6:
+                score += score_dict[face_value] * 4
 
         return score
 
-print(GameLogic.calculate_score((5,1,2,3)))
+print(GameLogic.calculate_score((2,2,2,2)))
