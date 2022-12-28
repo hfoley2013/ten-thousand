@@ -1,5 +1,5 @@
 import pytest
-from game_logic import *
+from ten_thousand.game_logic import *
 
 def test_roll_dice():
     game = GameLogic()
