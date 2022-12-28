@@ -1,13 +1,16 @@
-import random
+from random import randint
+from collections import Counter
 
 class GameLogic:
-    def roll_dice(self, num_dice):
-        dice_roll = []
-        for i in range(num_dice):
-            dice_roll.append(random.randint(1, 6))
-        return tuple(dice_roll)
 
-    def calculate_score(self, dice_roll):
+    @staticmethod
+    def roll_dice(num_dice=6):
+       return tuple([randint(1,6) for _ in range(num_dice)])
+
+    @staticmethod
+    def calculate_score(dice_roll):
+        dice_count = Counter(dice_roll)
+        print(dice_count)
         num_ones = dice_roll.count(1)
         num_twos = dice_roll.count(2)
         num_threes = dice_roll.count(3)
@@ -30,7 +33,7 @@ class GameLogic:
         score += num_fours * 400
 
         # Calculate score for fives
-        score += num_fives * 500
+        # score += num_fives * 500
 
         # Calculate score for sixes
         score += num_sixes * 600
@@ -59,3 +62,5 @@ class GameLogic:
         score += (num_fives % 3) * 50
 
         return score
+
+print(GameLogic.calculate_score((5,1,2,3)))
