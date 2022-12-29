@@ -31,6 +31,7 @@ def play(roller=GameLogic.roll_dice):
             roll_string += str(x) + " "
             roll_list.append(x)
         print(f"*** {roll_string} ***")
+        
         if GameLogic.calculate_score(tuple(roll_list)) == 0:
             print("You zilched!")
             round_num += 1
@@ -45,6 +46,7 @@ def play(roller=GameLogic.roll_dice):
             for x in keepers:
                 all_kept_dice.append(int(x))
                 kept_score.append(int(x))
+
             round_score += GameLogic.calculate_score(tuple(kept_score))
             print(f"You have {round_score} unbanked points and {6 - len(all_kept_dice)} dice remaining.")
             print("(r)oll again, (b)ank your points or (q)uit:")
@@ -61,7 +63,6 @@ def play(roller=GameLogic.roll_dice):
                 round_score = 0
                 print(f"Starting Round {round_num}")
             kept_score = []
-
 
 if __name__ == '__main__':
     welcome()
