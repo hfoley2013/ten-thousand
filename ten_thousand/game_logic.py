@@ -41,5 +41,3 @@ class GameLogic:
                 score += score_dict[face_value] * 4
 
         return score
-
-print(GameLogic.calculate_score((2,2,2,2)))
