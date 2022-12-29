@@ -9,6 +9,10 @@
 * [GitHub Repo](https://github.com/hfoley2013/ten-thousand)
 * [Rules of the Game](https://en.wikipedia.org/wiki/Dice_10000)
 
+## Credits
+
+* `game.py` code created in collaboration with Ian Shirley, Oliver Speir, Dylan Cabral, and Aubrey Corsetti
+
 ## How to initialize/run your application (where applicable)
 
 * TODO
