@@ -9,20 +9,33 @@
 * [GitHub Repo](https://github.com/hfoley2013/ten-thousand)
 * [Rules of the Game](https://en.wikipedia.org/wiki/Dice_10000)
 
-## Credits
+## Collaborators/Contributors
 
 * `game.py` code created in collaboration with Ian Shirley, Oliver Speir, Dylan Cabral, and Aubrey Corsetti
 
-## How to initialize/run your application (where applicable)
+### Setup
 
-* TODO
+* To set up this repo create a local repository on your machine
+* Create a virtual environment for Python
+  * `python3.11 -m venv .venv`
+* Activate the venv file
+  * `source .venv/bin/activate`
+* Install `pytest` and `pytest-watch`
+  * `pip install pytest pytest-watch`
+* Use `git clone` to clone the repo to your local machine
+  * `git clone https://github.com/hfoley2013/ten-thousand.git`
+* Your repo is now ready to run the Ten Thousand dice game simulator program
 
-## How to use your library (where applicable)
+### How to initialize/run
 
-* TODO
+* To run the test scripts:
+  * Run `pytest` in the CLI
+* To run the program:
+  * Run `python3.11 -m ten_thousand.game`
+  * Answer the prompts in order to see a print out of a the output of your dice rolls and scoring
+  * For additional information on the rules of the game, you can consult the rules of the game [here](https://en.wikipedia.org/wiki/Dice_10000)
 
-## Tests
+### Tests
 
 * How do you run tests?
-* Any tests of note?
-* Describe any tests that you did not complete, skipped, etc
+  * Tests are conducted via `pytest`
